@@ -29,9 +29,11 @@ cat_cols = df.select_dtypes(include=['object']).columns
 
 df[num_cols] = df[num_cols].apply(lambda x: x.fillna(x.mean()))
 
-# Dropping cat_cols as linear regression uses quantiative variables
+# Dropping cat_cols 
 print(cat_cols)
 df = df.drop(columns = cat_cols)
+
+
 
 # Linear Regression Model setup usng sk-learn
 X = df.drop('commonstockvalue', axis=1)
