@@ -1,4 +1,5 @@
 import pandas as pd
+from sklearn.preprocessing import OneHotEncoder
 
 
 df = pd.read_csv("../Datasets/Valuation/diamonds.csv")
@@ -20,11 +21,17 @@ for col in cat_cols:
     mode = df[col].mode()[0]
     df[col] = df[col].fillna(mode)
 
-# Perform one-hot encoding for each categorical column
-for col in cat_cols:
-    one_hot_encoded = pd.get_dummies(df[col], prefix=col)
-    df = pd.concat([df, one_hot_encoded], axis=1)
-    df.drop(col, axis=1, inplace=True)
+#OneHotEncoding
+onehot_encoder = OneHotEncoder(sparse=False, handle_unknown='ignore')
+onehot_encoded = onehot_encoder.fit_transform(df[cat_cols])
+categories = onehot_encoder.categories_
+feature_names = []
+for i, col in enumerate(cat_cols):
+    for category in categories[i]:
+        feature_names.append(f"{col}_{category}")
+onehot_encoded_df = pd.DataFrame(onehot_encoded, columns=feature_names)
+df = pd.concat([df, onehot_encoded_df], axis=1)
+df.drop(cat_cols, axis=1, inplace=True)
 
 import numpy as np
 from sklearn.model_selection import train_test_split
@@ -51,8 +58,7 @@ print(f"Mean Squared Error (scikit-learn): {mse}")
 
 # Linear Regression Model setup using numpy
 X = df.drop('price', axis=1)
-y = df['price'].values
-X = np.hstack([np.ones((X.shape[0], 1)), X.values])
+y = df['price']
 
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)

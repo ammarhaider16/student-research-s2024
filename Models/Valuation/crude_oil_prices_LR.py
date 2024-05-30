@@ -1,5 +1,9 @@
 import arff
 import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error
 
 dict = arff.load(open('../Datasets/Valuation/crude_oil_prices.arff'))
 
@@ -27,12 +31,6 @@ df[num_cols] = df[num_cols].apply(lambda x: x.fillna(x.mean()))
 for col in cat_cols:
     mode = df[col].mode()[0]
     df[col] = df[col].fillna(mode)
-
-
-import numpy as np
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_squared_error
 
 # Drop cat cols
 df = df.drop(columns=cat_cols)
@@ -71,4 +69,3 @@ y_pred_numPy = X_test.dot(theta)
 mse = mean_squared_error(y_test, y_pred_numPy)
 
 print(f"Mean Squared Error (numpy): {mse}")
- 
