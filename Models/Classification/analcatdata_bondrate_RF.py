@@ -1,3 +1,4 @@
+import arff
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
@@ -7,10 +8,20 @@ from sklearn.ensemble import RandomForestClassifier
 from xgboost import XGBRFClassifier
 from sklearn.pipeline import Pipeline
 
-df = pd.read_csv('../Datasets/Classification/australian.dat', sep=" ")
+
+dict = arff.load(open('../Datasets/Classification/analcatdata_bondrate.arff'))
 
 
-# Handle missing values -> drop columns with more than 90% missing values and replace other missing values with the average for the column
+title = []
+for list in dict.get('attributes'):
+    title.append(list[0])
+
+
+df = pd.DataFrame(dict.get("data"))
+df.columns = title
+df = df.drop(columns=['City'])
+
+# Handle missing values -> drop columns with more than 50% missing values and replace other missing values with the average for the column
 
 threshold = 0.9* len(df)
 cols_to_drop = df.columns[df.isnull().sum() > threshold]
@@ -25,13 +36,11 @@ for col in cat_cols:
     mode = df[col].mode()[0]
     df[col] = df[col].fillna(mode)
 
-# Dropping NaN values in target col
-df = df.dropna(subset=['CLASS'])
-
+df['binaryClass'] = df['binaryClass'].map({'N': 0, 'P': 1})
 
 # Random Forest Setup
-X = df.drop('CLASS', axis=1)
-y = df['CLASS']
+X = df.drop('binaryClass', axis=1)
+y = df['binaryClass']
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
@@ -66,3 +75,4 @@ y_pred = model.predict(X_test)
 
 accuracy_xgbrf = accuracy_score(y_test, y_pred)
 print(f'Accuracy (XGBoost): {accuracy_xgbrf:.2f}')
+

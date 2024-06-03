@@ -1,5 +1,11 @@
 import pandas as pd
-
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.compose import ColumnTransformer
+from sklearn.ensemble import RandomForestClassifier
+from xgboost import XGBRFClassifier
+from sklearn.pipeline import Pipeline
 
 df = pd.read_csv("../Datasets/Classification/taiwanese_bankruptcy_prediction.csv")
 
@@ -19,4 +25,49 @@ for col in cat_cols:
     mode = df[col].mode()[0]
     df[col] = df[col].fillna(mode)
 
-print(df)
+
+# Converting target values to numeric
+df['Bankrupt?'] = df['Bankrupt?'].map({'0':1, '1':0})
+df = df.dropna(subset=['Bankrupt?'])
+
+# FOR SOME REASON X AND Y IS NOT WOKRING AS IT SHOULD --> LEN 0 FOR ARRAYS
+print(len(df))
+
+# Random Forest Setup
+X = df.drop('Bankrupt?', axis=1)
+y = df['Bankrupt?']
+
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2,random_state=42)
+
+# One-hot encoding for cat cols
+cat_cols = X.select_dtypes(include=['object', 'category']).columns
+preprocessor = ColumnTransformer(
+    transformers=[
+        ('cat', OneHotEncoder(handle_unknown='ignore'), cat_cols)
+    ],
+    remainder='passthrough'
+)
+
+# SkLearn Random Forest
+model = Pipeline(steps=[
+    ('preprocessor', preprocessor),
+    ('classifier', RandomForestClassifier(n_estimators=100, random_state=42))
+])
+model.fit(X_train, y_train)
+y_pred = model.predict(X_test)
+
+accuracy_skl = accuracy_score(y_test, y_pred)
+print(f'Accuracy (sk-learn): {accuracy_skl:.2f}')
+
+
+#XGBoost Random Forest
+model = Pipeline(steps=[
+    ('preprocessor', preprocessor),
+    ('classifier', XGBRFClassifier(n_estimators=100, learning_rate=1, colsample_bynode=0.8, subsample=0.8, random_state=42))
+])
+model.fit(X_train, y_train)
+y_pred = model.predict(X_test)
+
+accuracy_xgbrf = accuracy_score(y_test, y_pred)
+print(f'Accuracy (XGBoost): {accuracy_xgbrf:.2f}')
