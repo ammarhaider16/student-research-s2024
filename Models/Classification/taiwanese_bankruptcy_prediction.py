@@ -13,7 +13,6 @@ df = pd.read_csv("../Datasets/Classification/taiwanese_bankruptcy_prediction.csv
 
 threshold = 0.9* len(df)
 cols_to_drop = df.columns[df.isnull().sum() > threshold]
-print("Dropped columns: "+cols_to_drop)
 df = df.drop(cols_to_drop, axis=1)
 
 num_cols = df.select_dtypes(include=['number']).columns
@@ -25,13 +24,6 @@ for col in cat_cols:
     mode = df[col].mode()[0]
     df[col] = df[col].fillna(mode)
 
-
-# Converting target values to numeric
-df['Bankrupt?'] = df['Bankrupt?'].map({'0':1, '1':0})
-df = df.dropna(subset=['Bankrupt?'])
-
-# FOR SOME REASON X AND Y IS NOT WOKRING AS IT SHOULD --> LEN 0 FOR ARRAYS
-print(len(df))
 
 # Random Forest Setup
 X = df.drop('Bankrupt?', axis=1)

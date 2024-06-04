@@ -13,7 +13,6 @@ df = pd.read_csv("../Datasets/Classification/credit_customers.csv")
 
 threshold = 0.9* len(df)
 cols_to_drop = df.columns[df.isnull().sum() > threshold]
-print("Dropped columns: "+cols_to_drop)
 df = df.drop(cols_to_drop, axis=1)
 
 num_cols = df.select_dtypes(include=['number']).columns
