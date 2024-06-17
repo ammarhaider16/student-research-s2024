@@ -45,6 +45,8 @@ df['Price'] = df['Price'].str.replace(",","").astype(float)
 X = df.drop(columns=['Price']).values.astype(np.float32)  # Features
 y = df['Price'].values.reshape(-1, 1).astype(np.float32)  # y
 
+
+
 # Normalize the X (optional but often recommended)
 X = (X - np.mean(X, axis=0)) / np.std(X, axis=0)
 

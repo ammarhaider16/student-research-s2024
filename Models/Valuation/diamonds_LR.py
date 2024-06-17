@@ -73,3 +73,22 @@ mse = mean_squared_error(y_test, y_pred_numPy)
 
 print(f"Mean Squared Error (numpy): {mse}")
  
+
+# Write output data to output files
+import sys
+import os
+current_dir = os.path.dirname(__file__)
+project_root = os.path.abspath(os.path.join(current_dir, '../../'))
+sys.path.append(project_root)
+
+from utils.modelOutputToCSV import modelOutputToCSV
+modelOneName = "sk-learn"
+modelOneOutputList = y_pred_skLearn.tolist()
+modelTwoName = "numpy"
+modelTwoOutputList = y_pred_numPy.tolist()
+
+thisDirectory = "Valuation"
+thisFile = "diamonds_LR"
+filePath = f"/users/shaider/student-research-s2024/Data/{thisDirectory}/{thisFile}.csv"
+
+modelOutputToCSV(modelOneName,modelOneOutputList,modelTwoName,modelTwoOutputList,filePath)
