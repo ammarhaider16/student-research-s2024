@@ -21,7 +21,7 @@ df = pd.DataFrame(dict.get("data"))
 df.columns = title
 df = df.drop(columns=['City'])
 
-# Handle missing values -> drop columns with more than 50% missing values and replace other missing values with the average for the column
+# Handle missing values -> replace other missing values with the average for the column
 
 threshold = 0.9* len(df)
 cols_to_drop = df.columns[df.isnull().sum() > threshold]
@@ -42,7 +42,7 @@ df['binaryClass'] = df['binaryClass'].map({'N': 0, 'P': 1})
 X = df.drop('binaryClass', axis=1)
 y = df['binaryClass']
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4, random_state=42)
 
 # One-hot encoding for cat cols
 cat_cols = X.select_dtypes(include=['object', 'category']).columns
@@ -59,9 +59,9 @@ model = Pipeline(steps=[
     ('classifier', RandomForestClassifier(n_estimators=100, random_state=42))
 ])
 model.fit(X_train, y_train)
-y_pred = model.predict(X_test)
+y_pred_skLearn = model.predict(X_test)
 
-accuracy_skl = accuracy_score(y_test, y_pred)
+accuracy_skl = accuracy_score(y_test, y_pred_skLearn)
 print(f'Accuracy (sk-learn): {accuracy_skl:.2f}')
 
 
@@ -71,8 +71,32 @@ model = Pipeline(steps=[
     ('classifier', XGBRFClassifier(n_estimators=100, learning_rate=1, colsample_bynode=0.8, subsample=0.8, random_state=42))
 ])
 model.fit(X_train, y_train)
-y_pred = model.predict(X_test)
+y_pred_xgb = model.predict(X_test)
 
-accuracy_xgbrf = accuracy_score(y_test, y_pred)
+accuracy_xgbrf = accuracy_score(y_test, y_pred_xgb)
 print(f'Accuracy (XGBoost): {accuracy_xgbrf:.2f}')
+
+# Write output data to output files
+import sys
+import os
+current_dir = os.path.dirname(__file__)
+project_root = os.path.abspath(os.path.join(current_dir, '../../'))
+sys.path.append(project_root)
+
+
+from utils.modelOutputToCSV import modelOutputToCSV
+modelOneName = "sk-learn"
+modelOneOutputList = y_pred_skLearn.tolist()
+modelTwoName = "XGBoost"
+modelTwoOutputList = y_pred_xgb.tolist()
+
+thisDirectory = "Classification"
+thisFile = "analcatdata_bondrate_RF"
+filePath = f"/users/shaider/student-research-s2024/Data/{thisDirectory}/{thisFile}.csv"
+
+modelOutputToCSV(modelOneName,modelOneOutputList,modelTwoName,modelTwoOutputList,filePath)
+
+
+
+
 

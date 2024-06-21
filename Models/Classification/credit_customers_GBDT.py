@@ -50,9 +50,9 @@ model = Pipeline(steps=[
     ('classifier', XGBClassifier(use_label_encoder=False, eval_metric='logloss'))
 ])
 model.fit(X_train, y_train)
-y_pred = model.predict(X_test)
+y_pred_xgb = model.predict(X_test)
 
-accuracy_xgb = accuracy_score(y_test, y_pred)
+accuracy_xgb = accuracy_score(y_test, y_pred_xgb)
 print(f"Accuracy (XGBoost): {accuracy_xgb}")
 
 
@@ -62,7 +62,28 @@ model = Pipeline(steps=[
     ('classifier', LGBMClassifier())
 ])
 model.fit(X_train, y_train)
-y_pred = model.predict(X_test)
+y_pred_lgbm = model.predict(X_test)
 
-accuracy_lgbm = accuracy_score(y_test, y_pred)
+accuracy_lgbm = accuracy_score(y_test, y_pred_lgbm)
 print(f"Accuracy (LightGBM): {accuracy_lgbm}")
+
+
+# Write output data to output files
+import sys
+import os
+current_dir = os.path.dirname(__file__)
+project_root = os.path.abspath(os.path.join(current_dir, '../../'))
+sys.path.append(project_root)
+
+
+from utils.modelOutputToCSV import modelOutputToCSV
+modelOneName = "XGBoost"
+modelOneOutputList = y_pred_xgb.tolist()
+modelTwoName = "LightGBM"
+modelTwoOutputList = y_pred_lgbm.tolist()
+
+thisDirectory = "Classification"
+thisFile = "credit_customers_GBDT"
+filePath = f"/users/shaider/student-research-s2024/Data/{thisDirectory}/{thisFile}.csv"
+
+modelOutputToCSV(modelOneName,modelOneOutputList,modelTwoName,modelTwoOutputList,filePath)
