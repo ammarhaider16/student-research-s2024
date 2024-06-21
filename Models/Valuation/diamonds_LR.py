@@ -63,15 +63,24 @@ y = df['price']
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-X_train_T = X_train.T
-theta = np.linalg.inv(X_train_T.dot(X_train)).dot(X_train_T).dot(y_train)
+# Add a column of ones to the features for the intercept term
+X_train = np.hstack([np.ones((X_train.shape[0], 1)), X_train])
+X_test = np.hstack([np.ones((X_test.shape[0], 1)), X_test])
 
-y_pred_numPy = X_test.dot(theta)
+# Ridge regression using numpy
+alpha = 1.0  # Regularization strength
+
+# Calculate the coefficients using the ridge regression formula
+X_train_T = X_train.T
+theta = np.linalg.inv(X_train_T.dot(X_train) + alpha * np.identity(X_train.shape[1])).dot(X_train_T).dot(y_train)
+
+# Make predictions on the test data
+y_pred_ridge_numpy = X_test.dot(theta)
 
 # Calculate the mean squared error
-mse = mean_squared_error(y_test, y_pred_numPy)
+mse_ridge_numpy = mean_squared_error(y_test, y_pred_ridge_numpy)
 
-print(f"Mean Squared Error (numpy): {mse}")
+print(f"Mean Squared Error (numpy): {mse_ridge_numpy}")
  
 
 # Write output data to output files
@@ -85,7 +94,7 @@ from utils.modelOutputToCSV import modelOutputToCSV
 modelOneName = "sk-learn"
 modelOneOutputList = y_pred_skLearn.tolist()
 modelTwoName = "numpy"
-modelTwoOutputList = y_pred_numPy.tolist()
+modelTwoOutputList = y_pred_ridge_numpy.tolist()
 
 thisDirectory = "Valuation"
 thisFile = "diamonds_LR"

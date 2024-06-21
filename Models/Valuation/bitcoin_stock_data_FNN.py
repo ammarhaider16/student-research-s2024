@@ -116,8 +116,8 @@ for epoch in range(epochs):
     print(f'Epoch {epoch + 1}, Loss: {loss.numpy()}')
 
 # Evaluate the model on the validation set
-y_val_pred = neural_net(X_val)
-validation_mse = mse_loss(y_val, y_val_pred)
+y_val_pred_tf = neural_net(X_val)
+validation_mse = mse_loss(y_val, y_val_pred_tf)
 print(f'Validation MSE (TensorFlow): {validation_mse.numpy()}')
 
 
@@ -186,8 +186,31 @@ for epoch in range(epochs):
 
 # Evaluate the model on the validation set
 model.eval()  # Set the model to evaluation mode
+y_val_pred_pytorch = []
 with torch.no_grad():  # Disable gradient computation
     y_val_pred = model(X_val_tensor)
+    y_val_pred_pytorch = y_val_pred
     validation_mse = criterion(y_val_pred, y_val_tensor).item()
 
 print(f'Validation MSE (PyTorch): {validation_mse:.4f}')
+
+
+# Write output data to output files
+import sys
+import os
+current_dir = os.path.dirname(__file__)
+project_root = os.path.abspath(os.path.join(current_dir, '../../'))
+sys.path.append(project_root)
+from utils.modelOutputToCSV import modelOutputToCSV
+
+modelOneName = "TensorFlow"
+modelOneOutputList = y_val_pred_tf.numpy().flatten().tolist()  
+modelTwoName = "PyTorch"
+modelTwoOutputList = y_val_pred_pytorch.cpu().numpy().flatten().tolist()  
+
+thisDirectory = "Valuation"
+thisFile = "bitcoin_stock_data_FNN"
+filePath = f"/users/shaider/student-research-s2024/Data/{thisDirectory}/{thisFile}.csv"
+
+modelOutputToCSV(modelOneName,modelOneOutputList,modelTwoName,modelTwoOutputList,filePath)
+
