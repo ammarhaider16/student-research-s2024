@@ -12,7 +12,7 @@ from torch.utils.data import DataLoader, TensorDataset
 import sys
 import os
 
-df = pd.read_csv("../Datasets/Valuation/google_historical_financials.csv")
+df = pd.read_csv("../Datasets/Valuation/nasdaq_historical_financials.csv")
 df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
 
 # Handle missing values -> drop columns with more than 50% missing values and replace other missing values with the average for the column
@@ -75,7 +75,7 @@ learning_rate = 0.01
 optimizer = tf.optimizers.Adam(learning_rate)
 
 # Number of epochs and batch size
-epochs = 100
+epochs = 1000
 batch_size = 32
 
 # Training function
@@ -135,7 +135,7 @@ class SimpleFNN(nn.Module):
 
 # Initialize the model
 input_size = X_train.shape[1]
-hidden_units = 100
+hidden_units = 10
 output_size = 1
 model = SimpleFNN(input_size, hidden_units, output_size)
 
@@ -145,7 +145,7 @@ criterion = nn.MSELoss()
 optimizer = optim.Adam(model.parameters(), lr=0.01)
 
 # Number of epochs
-epochs = 100
+epochs = 1000
 
 # Training loop
 for epoch in range(epochs):
@@ -191,7 +191,7 @@ modelTwoName = "PyTorch"
 modelTwoOutputList = y_val_pred_pytorch.cpu().numpy().flatten().tolist()  
 
 thisDirectory = "Valuation"
-thisFile = "google_historical_financials_FNN"
+thisFile = "nasdaq_historical_financials_FNN"
 filePath = f"/users/shaider/student-research-s2024/Data/{thisDirectory}/{thisFile}.csv"
 
 modelOutputToCSV(modelOneName,modelOneOutputList,modelTwoName,modelTwoOutputList,filePath)

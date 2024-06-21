@@ -12,7 +12,7 @@ from torch.utils.data import DataLoader, TensorDataset
 import sys
 import os
 
-df = pd.read_csv("../Datasets/Valuation/google_historical_financials.csv")
+df = pd.read_csv("../Datasets/Valuation/walmart_historical_financials.csv")
 df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
 
 # Handle missing values -> drop columns with more than 50% missing values and replace other missing values with the average for the column
@@ -135,7 +135,7 @@ class SimpleFNN(nn.Module):
 
 # Initialize the model
 input_size = X_train.shape[1]
-hidden_units = 100
+hidden_units = 10
 output_size = 1
 model = SimpleFNN(input_size, hidden_units, output_size)
 
@@ -191,7 +191,7 @@ modelTwoName = "PyTorch"
 modelTwoOutputList = y_val_pred_pytorch.cpu().numpy().flatten().tolist()  
 
 thisDirectory = "Valuation"
-thisFile = "google_historical_financials_FNN"
+thisFile = "walmart_historical_financials_FNN"
 filePath = f"/users/shaider/student-research-s2024/Data/{thisDirectory}/{thisFile}.csv"
 
 modelOutputToCSV(modelOneName,modelOneOutputList,modelTwoName,modelTwoOutputList,filePath)

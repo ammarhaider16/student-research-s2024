@@ -34,10 +34,6 @@ cat_cols = df.select_dtypes(include=['object']).columns
 
 df[num_cols] = df[num_cols].apply(lambda x: x.fillna(x.mean()))
 
-for col in cat_cols:
-    mode = df[col].mode()[0]
-    df[col] = df[col].fillna(mode)
-
 # Drop cat cols
 df = df.drop(columns=cat_cols)
 
@@ -86,7 +82,7 @@ learning_rate = 0.01
 optimizer = tf.optimizers.Adam(learning_rate)
 
 # Number of epochs and batch size
-epochs = 5
+epochs = 100
 batch_size = 32
 
 # Training function
@@ -156,7 +152,7 @@ criterion = nn.MSELoss()
 optimizer = optim.Adam(model.parameters(), lr=0.01)
 
 # Number of epochs
-epochs = 5
+epochs = 100
 
 # Training loop
 for epoch in range(epochs):
