@@ -21,17 +21,7 @@ for col in cat_cols:
     mode = df[col].mode()[0]
     df[col] = df[col].fillna(mode)
 
-#OneHotEncoding
-onehot_encoder = OneHotEncoder(sparse=False, handle_unknown='ignore')
-onehot_encoded = onehot_encoder.fit_transform(df[cat_cols])
-categories = onehot_encoder.categories_
-feature_names = []
-for i, col in enumerate(cat_cols):
-    for category in categories[i]:
-        feature_names.append(f"{col}_{category}")
-onehot_encoded_df = pd.DataFrame(onehot_encoded, columns=feature_names)
-df = pd.concat([df, onehot_encoded_df], axis=1)
-df.drop(cat_cols, axis=1, inplace=True)
+df = df.drop(columns=cat_cols)
 
 import numpy as np
 from sklearn.model_selection import train_test_split
