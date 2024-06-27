@@ -8,7 +8,7 @@ from utils.dataAnalysis import getListsFromCSV
 print("\n")
 from utils.dataAnalysis import getAverageList
 
-datasetName = "analcatdata_bondrate"
+datasetName = "corporate_credit_rating"
 algorithmOne = "RF"
 algorithmTwo = "GBDT"
 
