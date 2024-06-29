@@ -1,0 +1,13 @@
+dataset,pValueClassification(RF average/GBDT average)
+analcatdata_bondrate,0.7054569861112734
+analcatdata_creditscore,0.31731050786291415
+australian_credit_approval,0.038461234091176424
+corporate_credit_rating,0.8010865589564835
+credit_approval,1.0
+creditcard_fraud_detection,1.1093520724936444e-115
+credit_customers,0.0012737891863913728
+default_credit_card_clients,0.34276453348206215
+give_me_some_credit,9.539129125614259e-61
+home_credit_default_risk,6.814786284795703e-08
+taiwanese_bankruptcy_prediction,0.019550269092885545
+tvs_loan_default,9.761247676556888e-09

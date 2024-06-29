@@ -1,0 +1,13 @@
+dataset,pValueRF(sklearn/numpy),pValueGBDT(TensorFlow/PyTorch)
+analcatdata_bondrate,0.9999989811527811,0.24057823913888543
+analcatdata_creditscore,1.0,1.0
+australian_credit_approval,1.0,1.0
+corporate_credit_rating,0.6497901992552821,0.9999999999999999
+credit_approval,1.0,0.9999999966293526
+creditcard_fraud_detection,1.0,0.003807034081224306
+credit_customers,0.9999999999999998,0.9999999999999998
+default_credit_card_clients,0.9999999999999996,0.7807166762731331
+give_me_some_credit,0.002535620936758034,0.9998271050088235
+home_credit_default_risk,0.5427835531126946,0.9999760449468277
+taiwanese_bankruptcy_prediction,0.9902239920671766,0.9999999999999998
+tvs_loan_default,0.9962343045354569,1.0

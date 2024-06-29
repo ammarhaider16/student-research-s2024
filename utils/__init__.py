@@ -1,5 +1,4 @@
 from .modelOutputToCSV import modelOutputToCSV
-from .dataAnalysis import getListsFromCSV
-from .dataAnalysis import getAverageList
+from .dataAnalysis import getListsFromCSV, init, handleZTests, handleWilcoxonSRTests, handleKSTests, handleJSDivergences
 
-__all__ = ['modelOutputToCSV','getListsFromCSV','getAverageList']
+__all__ = ['modelOutputToCSV','getListsFromCSV','init', 'handleZTests', 'handleWilcoxonSRTests', 'handleKSTests', 'handleJSDivergences']

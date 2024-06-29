@@ -1,6 +1,7 @@
 dataset,pValueClassification(RF average/GBDT average)
 analcatdata_bondrate,0.7711375628906926
-analcatdata_creditscore,1.0
+analcatdata_creditscore,0.9100256668311278
+australian_credit_approval,0.5684617704896961
 corporate_credit_rating,0.9302488288504321
 credit_approval,1.0
 creditcard_fraud_detection,6.395519168878544e-67
