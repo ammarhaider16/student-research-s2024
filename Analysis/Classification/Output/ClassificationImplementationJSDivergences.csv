@@ -1,4 +1,4 @@
-dataset,pValueRF(sklearn/numpy),pValueGBDT(TensorFlow/PyTorch)
+dataset,jsDivergenceRF(sklearn/XGBoost),jsDivergenceGBDT(XGBoost/LightGBM)
 analcatdata_bondrate,0.31523346778141226,0.4147088673338152
 analcatdata_creditscore,0.16666666666666669,0.11682059367883216
 australian_credit_approval,0.2288409366558803,0.1386750490563073

@@ -1,4 +1,4 @@
-dataset,pValueRF(sklearn/numpy),pValueGBDT(TensorFlow/PyTorch)
+dataset,pValueRF(sklearn/XGBoost),pValueGBDT(XGBoost/LightGBM)
 analcatdata_bondrate,0.31731050786291415,0.0081509715935027
 analcatdata_creditscore,1.0,0.31731050786291415
 australian_credit_approval,0.17971249487899976,1.0
