@@ -1,1 +1,12 @@
 dataset,pValueLR(sklearn/numpy),pValueFNN(TensorFlow/PyTorch)
+airbus_historical_financials,1.0,0.9975834814828343
+amazon_historical_financials,1.0,1.0
+applied_materials_historical_financials,0.9999999999999996,0.9972112252506113
+crude_oil_prices,6.74973965782222e-23,8.4987348779912e-24
+diamonds,0.72805338486273,2.3810328821096106e-19
+gamestop_historical_financials,1.0,0.239629790356351
+google_historical_financials,0.9999999999999996,0.9705025764901342
+hsi_historical_financials,0.9999999999999997,0.9999999999999997
+ibm_historical_financials,0.9999999999999996,0.9890613464659049
+nasdaq_historical_financials,0.9999999999999996,0.9999999999999996
+walmart_historical_financials,0.9999999999999996,0.9999997578783977

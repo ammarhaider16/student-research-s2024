@@ -1,13 +1,13 @@
 dataset,jsDivergenceClassification(RF average/GBDT average)
-analcatdata_bondrate,0.17634432873850003
-analcatdata_creditscore,0.04071164645823564
-australian_credit_approval,0.23048072229147346
-corporate_credit_rating,0.046213936349288526
-credit_approval,0.1816985044890144
-creditcard_fraud_detection,0.02853678535776288
-credit_customers,0.2278079680671854
-default_credit_card_clients,0.31343134998926325
-give_me_some_credit,0.0679272566948803
-home_credit_default_risk,0.724939061649852
-taiwanese_bankruptcy_prediction,0.5323075078176127
-tvs_loan_default,0.7005565797997466
+analcatdata_bondrate,0.18805634839074215
+analcatdata_creditscore,0.04073054553816974
+australian_credit_approval,0.23110711233857217
+corporate_credit_rating,0.046195383001765414
+credit_approval,0.18202441795945834
+creditcard_fraud_detection,0.028697616207596047
+credit_customers,0.2278310575474301
+default_credit_card_clients,0.3105746045341636
+give_me_some_credit,0.06795429803457763
+home_credit_default_risk,0.785154151809066
+taiwanese_bankruptcy_prediction,0.5058481543260164
+tvs_loan_default,0.7810156536281053

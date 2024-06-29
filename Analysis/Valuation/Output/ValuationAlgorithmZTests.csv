@@ -1,1 +1,12 @@
 dataset,pValueValuation(LR average/RNN average)
+airbus_historical_financials,0.9862363439221012
+amazon_historical_financials,0.9870210826827956
+applied_materials_historical_financials,0.9962175724683626
+crude_oil_prices,0.9750647976135488
+diamonds,0.025266764334891594
+gamestop_historical_financials,0.6508651088064724
+google_historical_financials,0.9821847263927964
+hsi_historical_financials,0.9977646850321122
+ibm_historical_financials,0.9702768701036217
+nasdaq_historical_financials,0.999208333228645
+walmart_historical_financials,0.9853641597189199

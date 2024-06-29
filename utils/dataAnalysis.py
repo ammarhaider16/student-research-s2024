@@ -1,6 +1,7 @@
 import statsmodels.stats.weightstats as sms
 import scipy.stats as sps
 import scipy.spatial.distance as spd
+import numpy as np
 
 def getListsFromCSV(filename: str, isFloat:bool = True) -> dict:
     modelOneName = ""
@@ -142,18 +143,27 @@ def handleKSTests(modelType:str,datasetName:str, algorithmOne:str,algorithmOneDa
     with open(f"Analysis/{modelType}/Output/{modelType}AlgorithmKSTests.csv","a") as file:
         file.write(f"\n{datasetName},{acrossAlgorithmKSTest.pvalue}")
 
+def normalize_distribution(distribution: list) -> np.ndarray:
+    epsilon = 1e-10
+    distribution = np.array(distribution, dtype=np.float64)
+    if np.sum(distribution) == 0:
+        raise ValueError("The sum of the distribution is zero, cannot normalize.")
+    distribution = distribution / np.sum(distribution)  # Normalize to sum to 1
+    distribution = distribution + epsilon  # Add epsilon to avoid zeros
+    return distribution
+
 def handleJSDivergences(modelType:str,datasetName:str, algorithmOne:str,algorithmOneData:dict, algorithmTwo:str,algorithmTwoData:dict) -> None:
     base = 2
 
     algorithmOneModelOneName = algorithmOneData["modelOneName"]
     algorithmOneModelTwoName = algorithmOneData["modelTwoName"]
-    algorithmOneModelOneList = algorithmOneData["modelOneList"]
-    algorithmOneModelTwoList = algorithmOneData["modelTwoList"]
+    algorithmOneModelOneList = normalize_distribution(algorithmOneData["modelOneList"])
+    algorithmOneModelTwoList = normalize_distribution(algorithmOneData["modelTwoList"])
 
     algorithmTwoModelOneName = algorithmTwoData["modelOneName"]
     algorithmTwoModelTwoName = algorithmTwoData["modelTwoName"]
-    algorithmTwoModelOneList = algorithmTwoData["modelOneList"]
-    algorithmTwoModelTwoList = algorithmTwoData["modelTwoList"]
+    algorithmTwoModelOneList = normalize_distribution(algorithmTwoData["modelOneList"])
+    algorithmTwoModelTwoList = normalize_distribution(algorithmTwoData["modelTwoList"])
 
     algorithmOneJSDivergence = spd.jensenshannon(algorithmOneModelOneList, algorithmOneModelTwoList,base)
     print(f"jensen shannon divergence for {algorithmOne} implementations ({algorithmOneModelOneName} and {algorithmOneModelTwoName}) => ", algorithmOneJSDivergence)

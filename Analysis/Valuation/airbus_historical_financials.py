@@ -1,4 +1,3 @@
-import statsmodels.stats.weightstats as stTests
 import os
 import sys
 current_dir = os.path.dirname(__file__)
@@ -13,10 +12,10 @@ algorithmTwo = "FNN"
 
 modelType = "Valuation"
 
-algorithmOnefilename = f"Data/Classification/{datasetName}_{algorithmOne}.csv"
+algorithmOnefilename = f"Data/{modelType}/{datasetName}_{algorithmOne}.csv"
 algorithmOneData = getListsFromCSV(algorithmOnefilename, True)
 
-algorithmTwofilename = f"Data/Classification/{datasetName}_{algorithmTwo}.csv"
+algorithmTwofilename = f"Data/{modelType}/{datasetName}_{algorithmTwo}.csv"
 algorithmTwoData = getListsFromCSV(algorithmTwofilename, True)
 
 print("**********")
@@ -27,6 +26,4 @@ print("**********")
 handleWilcoxonSRTests(modelType,datasetName,algorithmOne, algorithmOneData, algorithmTwo, algorithmTwoData)
 print("**********")
 handleKSTests(modelType, datasetName, algorithmOne, algorithmOneData, algorithmTwo, algorithmTwoData)
-print("**********")
-handleJSDivergences(modelType, datasetName, algorithmOne, algorithmOneData, algorithmTwo, algorithmTwoData)
 print("**********")
