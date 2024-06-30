@@ -16,6 +16,6 @@ algorithmOneData = getListsFromCSV(algorithmOnefilename, False)
 algorithmTwofilename = f"Data/Classification/{datasetName}_{algorithmTwo}.csv"
 algorithmTwoData = getListsFromCSV(algorithmTwofilename, False)
 
-classificationUpperBound = 7
+classificationUpperBound = 9
 
-classificationVisualization(datasetName, classificationUpperBound, algorithmOne, algorithmTwo, algorithmOneData, algorithmOneData)
+classificationVisualization(datasetName, classificationUpperBound, algorithmOne, algorithmTwo, algorithmOneData, algorithmTwoData)

@@ -18,4 +18,4 @@ algorithmTwoData = getListsFromCSV(algorithmTwofilename, False)
 
 classificationUpperBound = 2
 
-classificationVisualization(datasetName, classificationUpperBound, algorithmOne, algorithmTwo, algorithmOneData, algorithmOneData)
+classificationVisualization(datasetName, classificationUpperBound, algorithmOne, algorithmTwo, algorithmOneData, algorithmTwoData)
