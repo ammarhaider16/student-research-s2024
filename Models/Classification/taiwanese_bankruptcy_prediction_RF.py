@@ -81,4 +81,6 @@ thisDirectory = "Classification"
 thisFile = "taiwanese_bankruptcy_prediction_RF"
 filePath = f"/users/shaider/student-research-s2024/Data/{thisDirectory}/{thisFile}.csv"
 
-modelOutputToCSV(modelOneName,modelOneOutputList,modelTwoName,modelTwoOutputList,filePath)
+# modelOutputToCSV(modelOneName,modelOneOutputList,modelTwoName,modelTwoOutputList,filePath)
+from utils.dataAnalysis import handleAddClassificationAccuracy
+handleAddClassificationAccuracy("RF",thisFile,accuracy_skl,accuracy_xgbrf)

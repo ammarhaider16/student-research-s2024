@@ -183,3 +183,7 @@ def handleJSDivergences(modelType:str,datasetName:str, algorithmOne:str,algorith
 
     with open(f"Analysis/{modelType}/Output/{modelType}AlgorithmJSDivergences.csv","a") as file:
         file.write(f"\n{datasetName},{acrossAlgorithmJSDivergence}")
+
+def handleAddClassificationAccuracy(algorithm:str,datasetName:str,toolkitOneAccuracy:dict,toolkitTwoAccuracy:dict) -> None:
+    with open(f"Classification/accuracy_{algorithm}.csv","a") as file:
+        file.write(f"\n{datasetName},{toolkitOneAccuracy},{toolkitTwoAccuracy}")

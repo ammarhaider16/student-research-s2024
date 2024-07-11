@@ -1,0 +1,13 @@
+dataset,RF/sk-learn,RF/XGBoost
+analcatdata_bondrate_RF,0.6521739130434783,0.5652173913043478
+analcatdata_creditscore_RF,0.96,0.96
+australian_credit_approval_RF,0.8768115942028986,0.8695652173913043
+corporate_credit_rating_RF,0.603448275862069,0.5123152709359606
+credit_approval_RF,0.8478260869565217,0.8333333333333334
+creditcard_fraud_detection_RF,0.9995962220427653,0.9995435553526912
+credit_customers_RF,0.78,0.77
+default_credit_card_clients_RF,0.816,0.8206666666666667
+give_me_some_credit_RF,0.9363666666666667,0.9347333333333333
+home_credit_default_risk_RF,0.9225478958572131,0.9215654167348943
+taiwanese_bankruptcy_prediction_RF,0.967741935483871,0.9655425219941349
+tvs_loan_default_RF,0.9784832451499118,0.977366255144033

@@ -95,4 +95,6 @@ thisDirectory = "Classification"
 thisFile = "home_credit_default_risk_GBDT"
 filePath = f"/users/shaider/student-research-s2024/Data/{thisDirectory}/{thisFile}.csv"
 
-modelOutputToCSV(modelOneName,modelOneOutputList,modelTwoName,modelTwoOutputList,filePath)
+# modelOutputToCSV(modelOneName,modelOneOutputList,modelTwoName,modelTwoOutputList,filePath)
+from utils.dataAnalysis import handleAddClassificationAccuracy
+handleAddClassificationAccuracy("GBDT",thisFile,accuracy_xgb,accuracy_lgbm)
