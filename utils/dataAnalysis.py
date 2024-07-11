@@ -2,6 +2,7 @@ import statsmodels.stats.weightstats as sms
 import scipy.stats as sps
 import scipy.spatial.distance as spd
 import numpy as np
+from sklearn.metrics import mean_squared_error
 
 def getListsFromCSV(filename: str, isFloat:bool = True) -> dict:
     modelOneName = ""
@@ -184,6 +185,13 @@ def handleJSDivergences(modelType:str,datasetName:str, algorithmOne:str,algorith
     with open(f"Analysis/{modelType}/Output/{modelType}AlgorithmJSDivergences.csv","a") as file:
         file.write(f"\n{datasetName},{acrossAlgorithmJSDivergence}")
 
-def handleAddClassificationAccuracy(algorithm:str,datasetName:str,toolkitOneAccuracy:dict,toolkitTwoAccuracy:dict) -> None:
+def handleAddClassificationAccuracy(algorithm:str,datasetName:str,toolkitOneAccuracy:float,toolkitTwoAccuracy:float) -> None:
     with open(f"Classification/accuracy_{algorithm}.csv","a") as file:
         file.write(f"\n{datasetName},{toolkitOneAccuracy},{toolkitTwoAccuracy}")
+
+def handleAddValuationNormalizedMSE(algorithm:str,datasetName:str,toolkitOneOutput:list,toolkitTwoOutput:list, y_test:list) -> None:
+    variance = np.var(y_test)
+    normalizedMSEtoolkitOne = mean_squared_error(y_test, toolkitOneOutput) / variance
+    normalizedMSEtoolkitTwo = mean_squared_error(y_test,toolkitTwoOutput) / variance
+    with open(f"Valuation/normalized_mse_{algorithm}.csv","a") as file:
+        file.write(f"\n{datasetName},{normalizedMSEtoolkitOne},{normalizedMSEtoolkitTwo}")

@@ -203,4 +203,6 @@ thisDirectory = "Valuation"
 thisFile = "diamonds_FNN"
 filePath = f"/users/shaider/student-research-s2024/Data/{thisDirectory}/{thisFile}.csv"
 
-modelOutputToCSV(modelOneName,modelOneOutputList,modelTwoName,modelTwoOutputList,filePath)
+#modelOutputToCSV(modelOneName,modelOneOutputList,modelTwoName,modelTwoOutputList,filePath)
+from utils.dataAnalysis import handleAddValuationNormalizedMSE
+handleAddValuationNormalizedMSE("FNN",thisFile,modelOneOutputList,modelTwoOutputList,y_val)
