@@ -1,11 +1,14 @@
 import random
 
 def classificationVisualization(datasetName:str,classificationUpperBound:int,algorithmOne:str,algorithmTwo:str,algorithmOneData:dict, algorithmTwoData:dict) -> None:
+    from matplotlib import RcParams
     import matplotlib.pyplot as plt
-    plt.rc('text', usetex=True)
-    plt.rc('font', family='serif')
-    plt.rc('font', serif='Computer Modern Roman')
-    plt.rc('font', size=12) 
+    latex_style_times = RcParams({'font.family': 'serif',
+               'font.serif': ['Times'],
+               'text.usetex': True,
+               })
+
+    plt.style.use(latex_style_times)
 
     algorithmOneModelOneName = algorithmOneData["modelOneName"]
     algorithmOneModelTwoName = algorithmOneData["modelTwoName"]
@@ -27,6 +30,9 @@ def classificationVisualization(datasetName:str,classificationUpperBound:int,alg
     # Plotting configuration
     fig, ax = plt.subplots(figsize=(len(algorithmOneModelOneList)/3.5,classificationUpperBound+2))
 
+    algorithmOne = "Random Forest"
+    algorithmTwo = "Gradient Boosted Decision Tree"
+
     # Plot points for each model's data from both algorithms
     ax.scatter(range(len(algorithmOneModelOneList)), algorithmOneModelOneList, label=f"{algorithmOne}/{algorithmOneModelOneName}", s=75, marker='o')
     ax.scatter(range(len(algorithmOneModelTwoList)), algorithmOneModelTwoList, label=f"{algorithmOne}/{algorithmOneModelTwoName}", s=75, marker='s')
@@ -37,7 +43,6 @@ def classificationVisualization(datasetName:str,classificationUpperBound:int,alg
     ax.set_yticks(list(range(classificationUpperBound)))
     ax.set_xlabel("Prediction Number")
     ax.set_ylabel("Predicted Value")
-    ax.set_title(f"Comparison of {algorithmOne} and {algorithmTwo} on {datasetName}")
     ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 
     # Save the plot to a file
