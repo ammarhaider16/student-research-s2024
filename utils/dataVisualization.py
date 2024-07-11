@@ -28,7 +28,12 @@ def classificationVisualization(datasetName:str,classificationUpperBound:int,alg
         algorithmTwoModelTwoList = algorithmTwoModelTwoList[endIndex-101:endIndex]
 
     # Plotting configuration
-    fig, ax = plt.subplots(figsize=(len(algorithmOneModelOneList)/3.5,classificationUpperBound+2))
+    if classificationUpperBound>2:
+        height = classificationUpperBound+2
+    else:
+        height = 2.5
+
+    fig, ax = plt.subplots(figsize=(len(algorithmOneModelOneList)/3.5,height))
 
     algorithmOne = "Random Forest"
     algorithmTwo = "Gradient Boosted Decision Tree"
